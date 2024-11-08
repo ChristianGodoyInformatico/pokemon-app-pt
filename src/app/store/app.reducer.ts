@@ -7,11 +7,22 @@ export const initialState: AppState = {
   favoritePokemonName: null,
 };
 
+// export const appReducer = createReducer(
+//   initialState,
+//   on(selectPokemon, (state, { name }) => ({
+//     ...state,
+//     selectedPokemonName: state.selectedPokemonName === name ? null : name,
+//   })),
+//   on(setFavoritePokemon, (state, { name }) => ({
+//     ...state,
+//     favoritePokemonName: state.favoritePokemonName === name ? null : name,
+//   }))
+// );
 export const appReducer = createReducer(
   initialState,
   on(selectPokemon, (state, { name }) => ({
     ...state,
-    selectedPokemonName: state.selectedPokemonName === name ? null : name,
+    selectedPokemonName: name,
   })),
   on(setFavoritePokemon, (state, { name }) => ({
     ...state,

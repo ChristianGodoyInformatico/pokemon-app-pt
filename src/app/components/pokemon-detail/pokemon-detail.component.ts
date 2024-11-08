@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Observable } from 'rxjs';
@@ -41,7 +41,7 @@ import { selectPokemon, setFavoritePokemon } from '../../store/app.actions';
     ]),
   ],
 })
-export class PokemonDetailComponent implements OnInit {
+export class PokemonDetailComponent implements OnInit, OnChanges {
   @Input() pokemonName!: string;
   pokemonDetails: any;
 
@@ -52,6 +52,18 @@ export class PokemonDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.pokemonName) {
+      this.loadPokemonDetails();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['pokemonName'] && !changes['pokemonName'].firstChange) {
+      this.loadPokemonDetails();
+    }
+  }
+
+  loadPokemonDetails(): void {
     this.pokemonService.getPokemonDetails(this.pokemonName).subscribe((data) => {
       this.pokemonDetails = data;
     });

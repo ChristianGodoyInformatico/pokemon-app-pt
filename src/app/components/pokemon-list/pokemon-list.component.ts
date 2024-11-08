@@ -8,7 +8,7 @@ import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Observable, Subscription } from 'rxjs';
+import { firstValueFrom, Observable, Subscription } from 'rxjs';
 import { MatSort } from '@angular/material/sort';
 import {
   trigger,
@@ -154,8 +154,10 @@ export class PokemonListComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  selectPokemon(name: string): void {
-    this.store.dispatch(selectPokemon({ name }));
+  async selectPokemon(name: string): Promise<void> {
+    const selectedName = await firstValueFrom(this.selectedPokemonName$);
+    const newName = selectedName === name ? null : name;
+    this.store.dispatch(selectPokemon({ name: newName }));
   }
 
   markAsFavorite(name: string): void {
