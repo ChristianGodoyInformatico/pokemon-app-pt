@@ -1,0 +1,16 @@
+<header class="header-container mb-3">
+    <div class="title-container">
+        <h1>Pokemon Favorito</h1>
+        <ng-container *ngIf="favoritePokemonName; else showFavorite">
+            <h2 (click)="showFavoriteDialog()" class="favorite-name" [@favoriteTitleAnimation]>
+                {{ favoritePokemonName | pokemonName }}
+            </h2>
+        </ng-container>
+        <ng-template #showFavorite>
+            <h2 (click)="showFavoriteDialog()" class="favorite-name">
+                ???
+            </h2>
+        </ng-template>
+
+    </div>
+</header>

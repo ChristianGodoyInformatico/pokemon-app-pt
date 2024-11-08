@@ -1,0 +1,36 @@
+<div class="detail-container" *ngIf="pokemonDetails">
+  <div class="header">
+    <h2>{{ pokemonDetails.name | pokemonName }}</h2>
+    <div class="icons">
+      <button
+        mat-icon-button
+        (click)="markAsFavorite(pokemonDetails.name)"
+        [color]="(favoritePokemonName$ | async) === pokemonDetails.name ? 'warn' : undefined"
+        [@favoriteAnimation]="(favoritePokemonName$ | async) === pokemonDetails.name ? 'selected' : 'deselected'"
+      >
+        <mat-icon>
+          {{ (favoritePokemonName$ | async) === pokemonDetails.name ? 'star' : 'star_border' }}
+        </mat-icon>
+      </button>
+      <button mat-icon-button (click)="closeDetail()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <img [src]="pokemonDetails.sprites.front_default" alt="{{ pokemonDetails.name }}" />
+
+  <h3>Características</h3>
+  <ul>
+    <li *ngFor="let ability of pokemonDetails.abilities">
+      {{ ability.ability.name | pokemonName }}
+    </li>
+  </ul>
+
+  <h3>Estadísticas</h3>
+  <ul>
+    <li *ngFor="let stat of pokemonDetails.stats">
+      {{ stat.stat.name | titlecase }}: {{ stat.base_stat }}
+    </li>
+  </ul>
+</div>

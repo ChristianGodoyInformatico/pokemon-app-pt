@@ -1,0 +1,18 @@
+<div class="p-3" [@dialogAnimation] *ngIf="pokemonDetails">
+    <h2>{{ pokemonDetails.name | pokemonName }}</h2>
+    <img [src]="pokemonDetails.sprites.front_default" alt="{{ pokemonDetails.name }}" />
+
+    <h3>Características</h3>
+    <ul>
+        <li *ngFor="let ability of pokemonDetails.abilities">
+            {{ ability.ability.name | pokemonName }}
+        </li>
+    </ul>
+
+    <h3>Estadísticas</h3>
+    <ul>
+        <li *ngFor="let stat of pokemonDetails.stats">
+            {{ stat.stat.name | pokemonName }}: {{ stat.base_stat }}
+        </li>
+    </ul>
+</div>
